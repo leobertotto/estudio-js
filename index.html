@@ -143,8 +143,8 @@ async function markStudied() {
 }
 
 function requestNotif() {
-  if (!('Notification' in window)) {
-    document.getElementById('notif-hint').textContent = 'En iPhone agregá la app a la pantalla de inicio primero.';
+  if (!notifSupported()) {
+    document.getElementById('notif-hint').textContent = 'Agregá la app a la pantalla de inicio para activar notificaciones.';
     return;
   }
   Notification.requestPermission().then(p => {
@@ -180,12 +180,16 @@ async function loadAndRender() {
     document.getElementById('app').innerHTML = `<div class="loading" style="color:#c0392b">Error al conectar: ${e.message}</div>`;
   }
 }
-
 const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const isStandalone = window.navigator.standalone;
 if (isIos && !isStandalone) document.getElementById('install-banner').style.display = 'block';
 
+function notifSupported() {
+  return typeof Notification !== 'undefined';
+}
+
 loadAndRender();
+
 </script>
 </body>
 </html>
