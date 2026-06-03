@@ -41,9 +41,9 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>&#128218; Estudio JS</h1>
+    <h1>📚 Estudio JS</h1>
     <div class="install-banner" id="install-banner">
-      Para recibir notificaciones en iPhone: toc&#225; <strong>Compartir</strong> &#8594; <strong>Agregar a pantalla de inicio</strong>
+      Para recibir notificaciones en iPhone: tocá <strong>Compartir</strong> → <strong>Agregar a pantalla de inicio</strong>
     </div>
     <div id="app"><div class="loading">Cargando...</div></div>
   </div>
@@ -57,7 +57,6 @@ const HDR = {
   'Content-Type': 'application/json'
 };
 
-// VAPID public key — must match the private key stored in Supabase Edge Function secrets
 const VAPID_PUBLIC_KEY = 'BNS7PLACEHOLDER_REPLACE_WITH_REAL_VAPID_PUBLIC_KEY';
 
 function urlBase64ToUint8Array(base64String) {
@@ -110,7 +109,6 @@ async function registerSW() {
   }
 }
 
-// Subscribe to Web Push using VAPID — sends subscription to Supabase
 async function subscribeToPush(reg) {
   if (!('PushManager' in window)) return null;
   try {
@@ -121,7 +119,6 @@ async function subscribeToPush(reg) {
         applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
       });
     }
-    // Save subscription to Supabase so the Edge Function can reach this device
     await fetch(SB_URL + '/rest/v1/push_subscriptions', {
       method: 'POST',
       headers: { ...HDR, 'Prefer': 'resolution=merge-duplicates' },
@@ -140,17 +137,15 @@ async function subscribeToPush(reg) {
 
 async function requestNotif() {
   if (!('Notification' in window)) {
-    document.getElementById('notif-hint').textContent = 'Agreg&#225; la app a la pantalla de inicio para activar notificaciones.';
+    document.getElementById('notif-hint').textContent = 'Agregá la app a la pantalla de inicio para activar notificaciones.';
     return;
   }
   const permission = await Notification.requestPermission();
   if (permission === 'granted') {
-    document.getElementById('btn-notif').textContent = '&#10003; Recordatorio activo';
-    document.getElementById('notif-hint').textContent = 'Te avisamos todos los d&#237;as a las 10:00';
+    document.getElementById('btn-notif').textContent = '✓ Recordatorio activo';
+    document.getElementById('notif-hint').textContent = 'Te avisamos todos los días a las 10:00';
     if (swReg) {
-      // Subscribe to server-push (robust on iOS)
       await subscribeToPush(swReg);
-      // Also start the SW setTimeout fallback
       const worker = swReg.active || swReg.installing || swReg.waiting;
       if (worker) {
         const doPost = (w) => w.postMessage({ type: 'START_SCHEDULE' });
@@ -161,7 +156,7 @@ async function requestNotif() {
       }
     }
   } else {
-    document.getElementById('notif-hint').textContent = 'Permiso denegado. Habilit&#225; notificaciones en Configuraci&#243;n.';
+    document.getElementById('notif-hint').textContent = 'Permiso denegado. Habilitá notificaciones en Configuración.';
   }
 }
 
@@ -181,24 +176,24 @@ function renderApp(dates) {
     daysHtml += '<div class="day-cell"><span class="day-name">' + dayNames[d.getDay()] + '</span><div class="day-dot ' + cls + '">' + d.getDate() + '</div></div>';
   }
   const badgeHtml = studiedToday
-    ? '<span class="badge badge-ok">&#10003; estudiaste hoy</span>'
-    : '<span class="badge badge-pending">&#8987; pendiente hoy</span>';
+    ? '<span class="badge badge-ok">✓ estudiaste hoy</span>'
+    : '<span class="badge badge-pending">⏳ pendiente hoy</span>';
   document.getElementById('app').innerHTML =
     '<div class="metrics">' +
-    '<div class="metric"><div class="metric-val">' + streak + '</div><div class="metric-lbl">&#128293; d&#237;as seguidos</div></div>' +
-    '<div class="metric"><div class="metric-val">' + total + '</div><div class="metric-lbl">&#128197; d&#237;as totales</div></div>' +
+    '<div class="metric"><div class="metric-val">' + streak + '</div><div class="metric-lbl">🔥 días seguidos</div></div>' +
+    '<div class="metric"><div class="metric-val">' + total + '</div><div class="metric-lbl">📅 días totales</div></div>' +
     '</div>' +
-    '<div class="card"><div class="sec-lbl">&#218;ltimos 7 d&#237;as</div><div class="days-grid">' + daysHtml + '</div>' + badgeHtml + '</div>' +
+    '<div class="card"><div class="sec-lbl">Últimos 7 días</div><div class="days-grid">' + daysHtml + '</div>' + badgeHtml + '</div>' +
     '<div class="card">' +
     '<button class="btn-main" id="btn-study" ' + (studiedToday ? 'disabled' : '') + ' onclick="markStudied()">' +
-    (studiedToday ? '&#10003; Ya estudiaste hoy' : 'Marcar que estudi&#233; hoy') + '</button>' +
+    (studiedToday ? '✓ Ya estudiaste hoy' : 'Marcar que estudié hoy') + '</button>' +
     '<div class="divider"></div>' +
-    '<button class="btn-sec" id="btn-notif" onclick="requestNotif()">&#128276; Activar recordatorio 10:00</button>' +
-    '<div class="hint" id="notif-hint">Activ&#225; el recordatorio para que te avise todos los d&#237;as a las 10:00</div>' +
+    '<button class="btn-sec" id="btn-notif" onclick="requestNotif()">🔔 Activar recordatorio 10:00</button>' +
+    '<div class="hint" id="notif-hint">Activá el recordatorio para que te avise todos los días a las 10:00</div>' +
     '<div class="error" id="err-msg"></div></div>';
   if (Notification.permission === 'granted') {
-    document.getElementById('btn-notif').textContent = '&#10003; Recordatorio activo';
-    document.getElementById('notif-hint').textContent = 'Te avisamos todos los d&#237;as a las 10:00';
+    document.getElementById('btn-notif').textContent = '✓ Recordatorio activo';
+    document.getElementById('notif-hint').textContent = 'Te avisamos todos los días a las 10:00';
     if (swReg && swReg.active) {
       subscribeToPush(swReg);
       swReg.active.postMessage({ type: 'START_SCHEDULE' });
@@ -210,7 +205,7 @@ async function markStudied() {
   const btn = document.getElementById('btn-study');
   btn.disabled = true; btn.textContent = 'Guardando...';
   try { await insertDay(getToday()); await loadAndRender(); }
-  catch(e) { document.getElementById('err-msg').textContent = e.message; btn.disabled = false; btn.textContent = 'Marcar que estudi&#233; hoy'; }
+  catch(e) { document.getElementById('err-msg').textContent = e.message; btn.disabled = false; btn.textContent = 'Marcar que estudié hoy'; }
 }
 
 async function loadAndRender() {
