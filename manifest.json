@@ -1,0 +1,21 @@
+{
+    "name": "Estudio JS",
+    "short_name": "EstudioJS",
+    "description": "Tracker diario de estudio de JavaScript",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f5f5f5",
+    "theme_color": "#1a1a1a",
+    "icons": [
+          {
+                  "src": "https://raw.githubusercontent.com/leobertotto/estudio-js/main/icon-192.png",
+                  "sizes": "192x192",
+                  "type": "image/png"
+          },
+          {
+                  "src": "https://raw.githubusercontent.com/leobertotto/estudio-js/main/icon-512.png",
+                  "sizes": "512x512",
+                  "type": "image/png"
+          }
+    ]
+}
