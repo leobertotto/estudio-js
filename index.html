@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Estudio JS" />
-  <title>Estudio JS</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; min-height: 100vh; padding: 1.5rem 1rem; }
-    .wrap { max-width: 420px; margin: 0 auto; }
-    h1 { font-size: 18px; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
-    .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
-    .metric { background: #fff; border-radius: 12px; padding: 1rem; border: 1px solid #e5e5e5; }
-    .metric-val { font-size: 36px; font-weight: 600; line-height: 1; }
-    .metric-lbl { font-size: 12px; color: #888; margin-top: 4px; }
-    .card { background: #fff; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; border: 1px solid #e5e5e5; }
-    .sec-lbl { font-size: 12px; color: #888; font-weight: 500; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-    .day-cell { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-    .day-name { font-size: 10px; color: #aaa; }
-    .day-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; border: 1px solid #e5e5e5; color: #aaa; }
-    .day-dot.done { background: #1D9E75; color: #fff; border-color: #1D9E75; }
-    .day-dot.today-empty { border: 2px solid #555; color: #1a1a1a; }
-    .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; padding: 4px 10px; border-radius: 8px; margin-top: 12px; }
-    .badge-ok { background: #e6f7f1; color: #0F6E56; }
-    .badge-pending { background: #fff8e6; color: #854F0B; }
-    .btn-main { width: 100%; padding: 13px; font-size: 15px; font-weight: 600; border-radius: 10px; border: none; background: #1a1a1a; color: #fff; cursor: pointer; margin-bottom: 8px; }
-    .btn-main:disabled { background: #e5e5e5; color: #aaa; cursor: default; }
-    .btn-sec { width: 100%; padding: 11px; font-size: 14px; border-radius: 10px; border: 1px solid #e5e5e5; background: transparent; color: #555; cursor: pointer; }
-    .btn-sec:hover { background: #f5f5f5; }
-    .divider { height: 1px; background: #f0f0f0; margin: 12px 0; }
-    .hint { font-size: 12px; color: #aaa; text-align: center; margin-top: 8px; line-height: 1.5; }
-    .error { font-size: 12px; color: #c0392b; text-align: center; margin-top: 6px; }
-    .loading { text-align: center; padding: 3rem; color: #aaa; font-size: 14px; }
-    .install-banner { background: #eeedfe; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; font-size: 13px; color: #3C3489; display: none; line-height: 1.5; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Estudio JS" />
+<link rel="manifest" href="/manifest.json" />
+<title>Estudio JS</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; min-height: 100vh; padding: 1.5rem 1rem; }
+.wrap { max-width: 420px; margin: 0 auto; }
+h1 { font-size: 18px; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.metric { background: #fff; border-radius: 12px; padding: 1rem; border: 1px solid #e5e5e5; }
+.metric-val { font-size: 36px; font-weight: 600; line-height: 1; }
+.metric-lbl { font-size: 12px; color: #888; margin-top: 4px; }
+.card { background: #fff; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; border: 1px solid #e5e5e5; }
+.sec-lbl { font-size: 12px; color: #888; font-weight: 500; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.day-cell { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.day-name { font-size: 10px; color: #aaa; }
+.day-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; border: 1px solid #e5e5e5; color: #aaa; }
+.day-dot.done { background: #1D9E75; color: #fff; border-color: #1D9E75; }
+.day-dot.today-empty { border: 2px solid #555; color: #1a1a1a; }
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; padding: 4px 10px; border-radius: 8px; margin-top: 12px; }
+.badge-ok { background: #e6f7f1; color: #0F6E56; }
+.badge-pending { background: #fff8e6; color: #854F0B; }
+.btn-main { width: 100%; padding: 13px; font-size: 15px; font-weight: 600; border-radius: 10px; border: none; background: #1a1a1a; color: #fff; cursor: pointer; margin-bottom: 8px; }
+.btn-main:disabled { background: #e5e5e5; color: #aaa; cursor: default; }
+.btn-sec { width: 100%; padding: 11px; font-size: 14px; border-radius: 10px; border: 1px solid #e5e5e5; background: transparent; color: #555; cursor: pointer; }
+.btn-sec:hover { background: #f5f5f5; }
+.divider { height: 1px; background: #f0f0f0; margin: 12px 0; }
+.hint { font-size: 12px; color: #aaa; text-align: center; margin-top: 8px; line-height: 1.5; }
+.error { font-size: 12px; color: #c0392b; text-align: center; margin-top: 6px; }
+.loading { text-align: center; padding: 3rem; color: #aaa; font-size: 14px; }
+.install-banner { background: #eeedfe; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; font-size: 13px; color: #3C3489; display: none; line-height: 1.5; }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>📚 Estudio JS</h1>
-    <div class="install-banner" id="install-banner">
-      Para recibir notificaciones en iPhone: tocá <strong>Compartir</strong> → <strong>Agregar a pantalla de inicio</strong>
-    </div>
-    <div id="app"><div class="loading">Cargando...</div></div>
-  </div>
+<div class="wrap">
+<h1>📚 Estudio JS</h1>
+<div class="install-banner" id="install-banner">
+Para recibir notificaciones en iPhone: tocá <strong>Compartir</strong> → <strong>Agregar a pantalla de inicio</strong>
+</div>
+<div id="app"><div class="loading">Cargando...</div></div>
+</div>
 
 <script>
 const SB_URL = 'https://clutqytavmsaghinkrrp.supabase.co';
@@ -86,13 +87,49 @@ function calcStreak(dates) {
   return streak;
 }
 
+let swReg = null;
+
+async function registerSW() {
+  if (!('serviceWorker' in navigator)) return null;
+  try {
+    swReg = await navigator.serviceWorker.register('/sw.js');
+    return swReg;
+  } catch(e) {
+    console.warn('SW registration failed:', e);
+    return null;
+  }
+}
+
+async function requestNotif() {
+  if (!('Notification' in window)) {
+    document.getElementById('notif-hint').textContent = 'Agregá la app a la pantalla de inicio para activar notificaciones.';
+    return;
+  }
+  const permission = await Notification.requestPermission();
+  if (permission === 'granted') {
+    document.getElementById('btn-notif').textContent = '✓ Recordatorio activo';
+    document.getElementById('notif-hint').textContent = 'Te avisamos todos los días a las 10:00';
+    if (swReg && swReg.active) {
+      swReg.active.postMessage({ type: 'START_SCHEDULE' });
+    } else if (swReg) {
+      const worker = swReg.installing || swReg.waiting;
+      if (worker) {
+        worker.addEventListener('statechange', () => {
+          if (worker.state === 'activated') worker.postMessage({ type: 'START_SCHEDULE' });
+        });
+      }
+    }
+  } else {
+    document.getElementById('notif-hint').textContent = 'Permiso denegado. Habilitá notificaciones en Configuración.';
+  }
+}
+
 function renderApp(dates) {
   const today = getToday();
   const studiedToday = dates.includes(today);
   const streak = calcStreak(dates);
   const total = dates.length;
   const dayNames = ['D','L','M','M','J','V','S'];
-
   let daysHtml = '';
   for (let i = 6; i >= 0; i--) {
     const d = new Date(); d.setDate(d.getDate() - i);
@@ -100,38 +137,28 @@ function renderApp(dates) {
     const isDone = dates.includes(key);
     const isToday = key === today;
     const cls = isDone ? 'done' : isToday ? 'today-empty' : '';
-    daysHtml += `<div class="day-cell"><span class="day-name">${dayNames[d.getDay()]}</span><div class="day-dot ${cls}">${d.getDate()}</div></div>`;
+    daysHtml += '<div class="day-cell"><span class="day-name">' + dayNames[d.getDay()] + '</span><div class="day-dot ' + cls + '">' + d.getDate() + '</div></div>';
   }
-
   const badgeHtml = studiedToday
-    ? `<span class="badge badge-ok">✓ estudiaste hoy</span>`
-    : `<span class="badge badge-pending">⏳ pendiente hoy</span>`;
-
-  document.getElementById('app').innerHTML = `
-    <div class="metrics">
-      <div class="metric"><div class="metric-val">${streak}</div><div class="metric-lbl">🔥 días seguidos</div></div>
-      <div class="metric"><div class="metric-val">${total}</div><div class="metric-lbl">📅 días totales</div></div>
-    </div>
-    <div class="card">
-      <div class="sec-lbl">Últimos 7 días</div>
-      <div class="days-grid">${daysHtml}</div>
-      ${badgeHtml}
-    </div>
-    <div class="card">
-      <button class="btn-main" id="btn-study" ${studiedToday ? 'disabled' : ''} onclick="markStudied()">
-        ${studiedToday ? '✓ Ya estudiaste hoy' : 'Marcar que estudié hoy'}
-      </button>
-      <div class="divider"></div>
-      <button class="btn-sec" id="btn-notif" onclick="requestNotif()">🔔 Activar recordatorio 10:00</button>
-      <div class="hint" id="notif-hint">Activá el recordatorio para que te avise todos los días a las 10:00</div>
-      <div class="error" id="err-msg"></div>
-    </div>
-  `;
-
+    ? '<span class="badge badge-ok">✓ estudiaste hoy</span>'
+    : '<span class="badge badge-pending">⏳ pendiente hoy</span>';
+  document.getElementById('app').innerHTML =
+    '<div class="metrics">' +
+    '<div class="metric"><div class="metric-val">' + streak + '</div><div class="metric-lbl">🔥 días seguidos</div></div>' +
+    '<div class="metric"><div class="metric-val">' + total + '</div><div class="metric-lbl">📅 días totales</div></div>' +
+    '</div>' +
+    '<div class="card"><div class="sec-lbl">Últimos 7 días</div><div class="days-grid">' + daysHtml + '</div>' + badgeHtml + '</div>' +
+    '<div class="card">' +
+    '<button class="btn-main" id="btn-study" ' + (studiedToday ? 'disabled' : '') + ' onclick="markStudied()">' +
+    (studiedToday ? '✓ Ya estudiaste hoy' : 'Marcar que estudié hoy') + '</button>' +
+    '<div class="divider"></div>' +
+    '<button class="btn-sec" id="btn-notif" onclick="requestNotif()">🔔 Activar recordatorio 10:00</button>' +
+    '<div class="hint" id="notif-hint">Activá el recordatorio para que te avise todos los días a las 10:00</div>' +
+    '<div class="error" id="err-msg"></div></div>';
   if (Notification.permission === 'granted') {
     document.getElementById('btn-notif').textContent = '✓ Recordatorio activo';
     document.getElementById('notif-hint').textContent = 'Te avisamos todos los días a las 10:00';
-    scheduleNotif(dates);
+    if (swReg && swReg.active) swReg.active.postMessage({ type: 'START_SCHEDULE' });
   }
 }
 
@@ -142,54 +169,20 @@ async function markStudied() {
   catch(e) { document.getElementById('err-msg').textContent = e.message; btn.disabled = false; btn.textContent = 'Marcar que estudié hoy'; }
 }
 
-function requestNotif() {
-  if (!notifSupported()) {
-    document.getElementById('notif-hint').textContent = 'Agregá la app a la pantalla de inicio para activar notificaciones.';
-    return;
-  }
-  Notification.requestPermission().then(p => {
-    if (p === 'granted') {
-      document.getElementById('btn-notif').textContent = '✓ Recordatorio activo';
-      document.getElementById('notif-hint').textContent = 'Te avisamos todos los días a las 10:00';
-      scheduleNotif([]);
-    } else {
-      document.getElementById('notif-hint').textContent = 'Permiso denegado. Habilitá notificaciones en Configuración.';
-    }
-  });
-}
-
-function scheduleNotif(dates) {
-  const now = new Date();
-  const target = new Date(); target.setHours(10, 0, 0, 0);
-  if (now >= target) target.setDate(target.getDate() + 1);
-  setTimeout(async () => {
-    const rows = await fetchDays().catch(() => []);
-    const ds = rows.map(r => r.study_date);
-    if (!ds.includes(getToday())) {
-      new Notification('¡Hora de estudiar JavaScript!', { body: 'Son las 10:00. Abrí el curso y estudiá aunque sea 30 minutos.' });
-    }
-    scheduleNotif(ds);
-  }, target - now);
-}
-
 async function loadAndRender() {
   try {
     const rows = await fetchDays();
     renderApp(rows.map(r => r.study_date));
   } catch(e) {
-    document.getElementById('app').innerHTML = `<div class="loading" style="color:#c0392b">Error al conectar: ${e.message}</div>`;
+    document.getElementById('app').innerHTML = '<div class="loading" style="color:#c0392b">Error al conectar: ' + e.message + '</div>';
   }
 }
+
 const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const isStandalone = window.navigator.standalone;
 if (isIos && !isStandalone) document.getElementById('install-banner').style.display = 'block';
 
-function notifSupported() {
-  return typeof Notification !== 'undefined';
-}
-
-loadAndRender();
-
+registerSW().then(() => loadAndRender());
 </script>
 </body>
 </html>
