@@ -1,0 +1,15 @@
+# supabase/config.toml
+# Supabase project configuration
+# See: https://supabase.com/docs/guides/cli/config
+
+[project]
+id = "clutqytavmsaghinkrrp"
+
+# ─── Edge Function: push-reminder ────────────────────────────────────────────
+# Cron triggers the function every day at 13:00 UTC = 10:00 Argentina (UTC-3)
+# Cron syntax: minute hour day-of-month month day-of-week
+[functions.push-reminder]
+verify_jwt = false
+
+[[functions.push-reminder.cron]]
+schedule = "0 13 * * *"
